@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Streamerr</title>
+    <meta name="description" content="Stream all your content to all your devices!">
+    <!-- <link rel="stylesheet" type="text/css" href="style/style.css"> -->
+
+    <!-- Responsive website stuff -->
+      <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <meta name="HandheldFriendly" content="true">
+
+    <!-- Media player, author credit: codepen.io/emilcarlsson/pen/WdRRMX -->
+      <link href='https://fonts.googleapis.com/css?family=Lato:400,700,900' rel='stylesheet' type='text/css'>
+      <script src="https://use.typekit.net/hoy3lrg.js"></script>
+      <script>try{Typekit.load({ async: true });}catch(e){}</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+      <!-- <link rel="stylesheet" href="style/player.css"> -->
+      <link rel="stylesheet" href="player.css">
+      <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+      <script src='https://use.fontawesome.com/15af25ac7b.js'></script>
+      <script src='https://cdnjs.cloudflare.com/ajax/libs/jcarousel/0.3.1/jquery.jcarousel.min.js'></script><script  src="player.js"></script>
+      <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/jcarousel/0.3.1/jquery.jcarousel.min.js'></script><script  src="js/player.js"></script> -->
+
+
+
+    <!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+  <!-- partial:index.partial.html -->
+  <div id="wrapper">
+   <div id="player">
+    <div id="screen">
+     <div id="content-wrap">
+      <div id="background"></div>
+      <div id="content">
+       <div id="header">
+        <span id="menu-btn"><img src="https://emilcarlsson.se/assets/svg/menu.svg" alt="" class="svg"></span>
+        <span id="options-btn"><img src="https://emilcarlsson.se/assets/svg/more.svg" alt="" class="svg"></span>
+       </div>
+
+
+       <div class="search">
+         <form action="/search">
+           <input class="wide" type="search" id="rsearch" name="rsearch" placeholder="Search">
+           <label for="tv">TV</label>
+           <input type="radio" id="movies" name="contentType" value="Movies">
+           <label for="movies">Movies</label>
+           <input type="radio" id="music" name="contentType" value="Music">
+           <label for="music">Music</label>
+           <input type="submit" value="Submit">
+         </form>
+       </div>
+
+       <div class="content-info">
+         <ul id="data">
+          <li class="content" data-color="#f38578">
+            <p class="content-title">Better Call Saul</p>
+            <p class="ep-season-num">S06E03</p>
+            <p class="ep-title">Rock and Hard Place</p>
+          </li>
+         </ul>
+       </div>
+
+
+       <!-- <div class="jcarousel">
+        <ul id="songs">
+        	<li class="song" data-color="#f38578">
+  					<p class="song-title">Trying</p>
+  					<p class="song-artist">Leo</p>
+  				</li>
+        </ul>
+       </div> -->
+       <audio crossorigin>
+  				<source src="" type="audio/mpeg">
+  			</audio>
+
+
+       <div id="controls">
+        <span id="previous-btn"><i class="fa fa-step-backward fa-fw" aria-hidden="true"></i></span>
+        <span id="play-btn"><i class="fa fa-play fa-fw" aria-hidden="true"></i></span>
+        <span id="next-btn"><i class="fa fa-step-forward fa-fw" aria-hidden="true"></i></span>
+       </div>
+       <div id="timeline">
+        <span id="current-time">--:--</span>
+        <span id="total-time">--:--</span>
+        <div class="slider" data-direction="horizontal">
+  				<div class="progress">
+  					<div class="pin" id="progress-pin" data-method="rewind"></div>
+  				</div>
+  			</div>
+       </div>
+       <div id="sub-controls">
+          <i class="fa fa-random" aria-hidden="true"></i>
+          <i class="fa fa-refresh" aria-hidden="true"></i>
+          <svg class="cast active" id="bluetooth-btn" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+            <path d="M447.8,64H64c-23.6,0-42.7,19.1-42.7,42.7v63.9H64v-63.9h383.8v298.6H298.6V448H448c23.6,0,42.7-19.1,42.7-42.7V106.7 C490.7,83.1,471.4,64,447.8,64z M21.3,383.6L21.3,383.6l0,63.9h63.9C85.2,412.2,56.6,383.6,21.3,383.6L21.3,383.6z M21.3,298.6V341 c58.9,0,106.6,48.1,106.6,107h42.7C170.7,365.6,103.7,298.7,21.3,298.6z M213.4,448h42.7c-0.5-129.5-105.3-234.3-234.8-234.6l0,42.4 C127.3,255.6,213.3,342,213.4,448z"/>
+          </svg>
+          <i class="fa fa-heart-o" id="heart-icon" aria-hidden="true"></i>
+       </div>
+      </div>
+      <div id="overlay"></div>
+     </div>
+     <div id="sidemenu">
+      <ul>
+       <li>
+        <i class="fa fa-search fa-fw" aria-hidden="true"></i>
+  			 Search
+       </li>
+       <li>
+        <img class="svg menu-icons" src="https://emilcarlsson.se/assets/svg/music-player.svg" alt="">
+  			 Playlists
+       </li>
+       <li>
+        <img id="album-icon" class="svg menu-icons" src="https://emilcarlsson.se/assets/svg/album-icon.svg" alt="">
+        Albums
+       </li>
+       <li>
+        <i class="fa fa-microphone fa-fw" aria-hidden="true"></i>
+        Artists
+       </li>
+  			<li>
+  				<i class="fa fa-podcast fa-fw" aria-hidden="true"></i>
+  				Podcasts
+  			</li>
+  			<li>
+  				<i class="fa fa-cog fa-fw" aria-hidden="true"></i>
+  				Settings
+  			</li>
+      </ul>
+     </div>
+  	 <div id="bluetooth-devices" class="menu">
+  			<span class="close-btn"><span>&times;</span> Close</span>
+  			<h3>Devices nearby</h3>
+  			<ul>
+  				<li class="connected">
+  					<img id="headphones-icon" class="svg menu-icons" src="https://emilcarlsson.se/assets/svg/headphone.svg" alt="">
+  					<p>
+  						Major II Bluetooth
+  						<span>Connected</span>
+  					</p>
+  				</li>
+  				<li>
+  					<img id="headphones-icon" class="svg menu-icons" src="https://emilcarlsson.se/assets/svg/loudspeaker.svg" alt="">
+  					<p>
+  						Sonos One
+  						<span>Connected</span>
+  					</p>
+  				</li>
+  				<li>
+  					<img id="headphones-icon" class="svg menu-icons" src="https://emilcarlsson.se/assets/svg/car.svg" alt="">
+  					<p>
+  						Kia Motors
+  						<span>Connected</span>
+  					</p>
+  				</li>
+  			</ul>
+  			<p class="info-text">
+  				Make sure your bluetooth device is turned on and in range.
+  			</p>
+  		</div>
+  	 <div id="song-options" class="menu">
+  		 <span class="close-btn"><span>&times;</span> Close</span>
+  		 <div id="song-info">
+  		 	<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/308622/rockstar-album-cover.jpg" alt="">
+  			 <div class="artist-wrap">
+  			 	<p>
+  			 		<span class="title">rockstar</span>
+  					<span class="artist">Post Malone, 21 Savage</span>
+  			 	</p>
+  			 </div>
+  		 </div>
+  	 	<ul>
+  	 		<li>
+          <i class="fa fa-music fa-fw add" aria-hidden="true"></i>
+  				Add to playlist
+  			</li>
+  			<li>
+  				<i class="fa fa-microphone fa-fw" aria-hidden="true"></i>
+  				View Artist
+  			</li>
+       <li>
+        <img id="album-icon" class="svg menu-icons" src="https://emilcarlsson.se/assets/svg/compact-disc.svg" alt="">
+        View Album
+       </li>
+  			<li>
+  				<i class="fa fa-share-square-o fa-fw" aria-hidden="true"></i>
+  				Share
+  			</li>
+  	 	</ul>
+  	 </div>
+    </div>
+   </div>
+  </div>
+  <!-- partial -->
+  </body>
+</html>

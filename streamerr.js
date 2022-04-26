@@ -15,17 +15,17 @@ let handleRequest = (req, res) => {
             }
             res.end();
         });
-    } else if(req.url.match("\.css$")){
-        var cssPath = path.join(__dirname, 'style', req.url);
-        var fileStream = fs.createReadStream(cssPath, "UTF-8");
-        res.writeHead(200, {"Content-Type": "text/css"});
-        fileStream.pipe(res);
-
-    } else if(req.url.match("\.js")){
-        var jsPath = path.join(__dirname, 'js', req.url);
-        var fileStream = fs.createReadStream(jsPath, "UTF-8");
-        res.writeHead(200, {"Content-Type": "text/js"});
-        fileStream.pipe(res);
+    // } else if(req.url.match("\.css$")){
+    //     var cssPath = path.join(__dirname, 'style', req.url);
+    //     var fileStream = fs.createReadStream(cssPath, "UTF-8");
+    //     res.writeHead(200, {"Content-Type": "text/css"});
+    //     fileStream.pipe(res);
+    //
+    // } else if(req.url.match("\.js")){
+    //     var jsPath = path.join(__dirname, 'js', req.url);
+    //     var fileStream = fs.createReadStream(jsPath, "UTF-8");
+    //     res.writeHead(200, {"Content-Type": "text/js"});
+    //     fileStream.pipe(res);
 
     } else {
         console.log('404 Resource not found')

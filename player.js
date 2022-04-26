@@ -7,8 +7,7 @@
  */
 
 $(document).ready(function () {
-	var songs = [
-		{
+	var songs = [{
 			title: "rockstar",
 			artist: "Post Malone, 21 Savage",
 			cover: "https://s3-us-west-2.amazonaws.com/s.cdpn.io/308622/rockstar-album-cover.jpg",
@@ -46,7 +45,7 @@ $(document).ready(function () {
 	];
 
 	for (let song of songs) {
-		$("#songs").append('<li class="song" data-audio="' + song.audioFile + '" data-color="'+ song.color +'">' +
+		$("#songs").append('<li class="song" data-audio="' + song.audioFile + '" data-color="' + song.color + '">' +
 			'<img src="' + song.cover + '">' +
 			'<p class="song-title">' + song.title + '</p>' +
 			'<p class="song-artist">' + song.artist + '</p>' +
@@ -54,30 +53,30 @@ $(document).ready(function () {
 	}
 
 	$('.jcarousel').jcarousel({
-			wrap: 'circular'
+		wrap: 'circular'
 	});
 });
 
 /*
  * Replace all SVG images with inline SVG
  */
-jQuery('img[src$=".svg"]').each(function(){
+jQuery('img[src$=".svg"]').each(function () {
 	var $img = jQuery(this);
 	var imgID = $img.attr('id');
 	var imgClass = $img.attr('class');
 	var imgURL = $img.attr('src');
 
-	jQuery.get(imgURL, function(data) {
+	jQuery.get(imgURL, function (data) {
 		// Get the SVG tag, ignore the rest
 		var $svg = jQuery(data).find('svg');
 
 		// Add replaced image's ID to the new SVG
-		if(typeof imgID !== 'undefined') {
+		if (typeof imgID !== 'undefined') {
 			$svg = $svg.attr('id', imgID);
 		}
 		// Add replaced image's classes to the new SVG
-		if(typeof imgClass !== 'undefined') {
-			$svg = $svg.attr('class', imgClass+' replaced-svg');
+		if (typeof imgClass !== 'undefined') {
+			$svg = $svg.attr('class', imgClass + ' replaced-svg');
 		}
 
 		// Remove any invalid XML tags as per http://validator.w3.org
@@ -91,14 +90,14 @@ jQuery('img[src$=".svg"]').each(function(){
 });
 
 // Current slide
-$('.jcarousel').on('jcarousel:visiblein', 'li', function(event, carousel) {
+$('.jcarousel').on('jcarousel:visiblein', 'li', function (event, carousel) {
 	let cover = $(this).find("img").attr("src");
 	let songTitle = $(this).find("p.song-title").html();
 	let songArtist = $(this).find("p.song-artist").html();
 	let audioSrc = $(this).attr("data-audio");
 	$("body").css('background', backgroundColor)
-	$("#background").css('background-image', 'url('+cover+')');
-	$("audio").find("source").attr("src", ""+audioSrc+"");
+	$("#background").css('background-image', 'url(' + cover + ')');
+	$("audio").find("source").attr("src", "" + audioSrc + "");
 	player.load();
 	player.currentTime = 0;
 	$("#song-info").find("img").attr("src", cover);
@@ -107,19 +106,20 @@ $('.jcarousel').on('jcarousel:visiblein', 'li', function(event, carousel) {
 });
 
 // Previous slide
-$('#previous-btn').click(function() {
+$('#previous-btn').click(function () {
 	$('.jcarousel').jcarousel('scroll', '-=1');
 	$('#play-btn i').removeClass('fa-pause');
 	player.pause();
 });
 
 // Next slide
-$('#next-btn').click(function() {
+$('#next-btn').click(function () {
 	if ($(".fa-random").hasClass('active')) {
 		let songs = $("#songs li").length - 1;
 		let randomSong = Math.floor(Math.random() * songs) + 1;
 		$('.jcarousel').jcarousel('scroll', '+=' + randomSong);
-	} else {
+	}
+	else {
 		$('.jcarousel').jcarousel('scroll', '+=1');
 	}
 	$('#play-btn i').removeClass('fa-pause');
@@ -127,27 +127,29 @@ $('#next-btn').click(function() {
 });
 
 // Play Icon Switcher
-$('#play-btn').click(function() {
+$('#play-btn').click(function () {
 	$(this).find('i').toggleClass('fa-pause');
 });
 
 // Menu
-$("#menu-btn").click(function() {
+$("#menu-btn").click(function () {
 	$("#content-wrap").addClass('inactive');
 	$("#sidemenu").addClass('active');
 });
 
 // Home Button
-$("#home-btn").click(function() {
+$("#home-btn").click(function () {
 	$("#home-screen").addClass('active');
 	$(".menu").removeClass('active');
 	$("#content-wrap").addClass('minimized');
 });
 
 // App
-$(".app-icon").click(function() {
+$(".app-icon").click(function () {
 	$("#content-wrap").removeClass('minimized');
-	setTimeout(function(){ $("#home-screen").removeClass('active'); }, 300);
+	setTimeout(function () {
+		$("#home-screen").removeClass('active');
+	}, 300);
 });
 
 // Overlay
@@ -157,41 +159,43 @@ $("#overlay").click(function () {
 });
 
 // Options
-$("#options-btn").click(function() {
+$("#options-btn").click(function () {
 	$("#song-options").addClass('active');
 });
 
 // Bluetooth
-$("#bluetooth-btn").click(function() {
+$("#bluetooth-btn").click(function () {
 	$("#bluetooth-devices").addClass('active');
 });
 
 // Bluetooth Menu
-$("#bluetooth-devices ul li").click(function() {
+$("#bluetooth-devices ul li").click(function () {
 	$(this).toggleClass('connected');
 	$(this).siblings().removeClass('connected');
 
 	if ($("#bluetooth-devices ul li").hasClass('connected')) {
 		$("#sub-controls i.fa-bluetooth-b").addClass('active');
-	} else {
+	}
+	else {
 		$("#sub-controls i.fa-bluetooth-b").removeClass('active');
 	}
 });
 
 // Close Menu
-$(".close-btn").click(function() {
+$(".close-btn").click(function () {
 	$(".menu").removeClass('active');
 });
 
 $('#sub-controls i').click(function () {
-	if(!$(this).hasClass('fa-bluetooth-b')) {
+	if (!$(this).hasClass('fa-bluetooth-b')) {
 		$(this).toggleClass('active');
 	}
 
 	if ($("#heart-icon").hasClass('active')) {
 		$("#heart-icon").removeClass('fa-heart-o');
 		$("#heart-icon").addClass('fa-heart');
-	} else {
+	}
+	else {
 		$("#heart-icon").removeClass('fa-heart');
 		$("#heart-icon").addClass('fa-heart-o');
 	}
@@ -214,37 +218,39 @@ var totalTime = audioPlayer.querySelector('#total-time');
 var draggableClasses = ['pin'];
 var currentlyDragged = null;
 
-window.addEventListener('mousedown', function(event) {
+window.addEventListener('mousedown', function (event) {
 
-  if(!isDraggable(event.target)) return false;
+	if (!isDraggable(event.target)) return false;
 
-  currentlyDragged = event.target;
-  let handleMethod = currentlyDragged.dataset.method;
+	currentlyDragged = event.target;
+	let handleMethod = currentlyDragged.dataset.method;
 
-  this.addEventListener('mousemove', window[handleMethod], false);
+	this.addEventListener('mousemove', window[handleMethod], false);
 
-  window.addEventListener('mouseup', () => {
-    currentlyDragged = false;
-    window.removeEventListener('mousemove', window[handleMethod], false);
-  }, false);
+	window.addEventListener('mouseup', () => {
+		currentlyDragged = false;
+		window.removeEventListener('mousemove', window[handleMethod], false);
+	}, false);
 });
 
 playpauseBtn.addEventListener('click', togglePlay);
 player.addEventListener('timeupdate', updateProgress);
 player.addEventListener('loadedmetadata', () => {
-  totalTime.textContent = formatTime(player.duration);
+	totalTime.textContent = formatTime(player.duration);
 });
-player.addEventListener('ended', function(){
-  player.currentTime = 0;
+player.addEventListener('ended', function () {
+	player.currentTime = 0;
 
 	if ($(".fa-refresh").hasClass('active')) {
 		togglePlay();
-	} else {
+	}
+	else {
 		if ($(".fa-random").hasClass('active')) {
 			let songs = $("#songs li").length - 1;
 			let randomSong = Math.floor(Math.random() * songs) + 1;
 			$('.jcarousel').jcarousel('scroll', '+=' + randomSong);
-		} else {
+		}
+		else {
 			$('.jcarousel').jcarousel('scroll', '+=1');
 		}
 		togglePlay();
@@ -252,78 +258,81 @@ player.addEventListener('ended', function(){
 });
 
 sliders.forEach(slider => {
-  let pin = slider.querySelector('.pin');
-  slider.addEventListener('click', window[pin.dataset.method]);
+	let pin = slider.querySelector('.pin');
+	slider.addEventListener('click', window[pin.dataset.method]);
 });
 
 function isDraggable(el) {
-  let canDrag = false;
-  let classes = Array.from(el.classList);
-  draggableClasses.forEach(draggable => {
-    if(classes.indexOf(draggable) !== -1)
-      canDrag = true;
-  })
-  return canDrag;
+	let canDrag = false;
+	let classes = Array.from(el.classList);
+	draggableClasses.forEach(draggable => {
+		if (classes.indexOf(draggable) !== -1)
+			canDrag = true;
+	})
+	return canDrag;
 }
 
 function inRange(event) {
-  let rangeBox = getRangeBox(event);
-  let direction = rangeBox.dataset.direction;
+	let rangeBox = getRangeBox(event);
+	let direction = rangeBox.dataset.direction;
 	let screenOffset = document.querySelector("#screen").offsetLeft + 26;
 	var min = screenOffset - rangeBox.offsetLeft;
 	var max = min + rangeBox.offsetWidth;
-	if(event.clientX < min || event.clientX > max) { return false };
-  return true;
+	if (event.clientX < min || event.clientX > max) {
+		return false
+	};
+	return true;
 }
 
 function updateProgress() {
-  var current = player.currentTime;
-  var percent = (current / player.duration) * 100;
-  progress.style.width = percent + '%';
+	var current = player.currentTime;
+	var percent = (current / player.duration) * 100;
+	progress.style.width = percent + '%';
 
-  currentTime.textContent = formatTime(current);
+	currentTime.textContent = formatTime(current);
 }
 
 function getRangeBox(event) {
-  let rangeBox = event.target;
-  let el = currentlyDragged;
-  if(event.type == 'click' && isDraggable(event.target)) {
-    rangeBox = event.target.parentElement.parentElement;
-  }
-  if(event.type == 'mousemove') {
-    rangeBox = el.parentElement.parentElement;
-  }
-  return rangeBox;
+	let rangeBox = event.target;
+	let el = currentlyDragged;
+	if (event.type == 'click' && isDraggable(event.target)) {
+		rangeBox = event.target.parentElement.parentElement;
+	}
+	if (event.type == 'mousemove') {
+		rangeBox = el.parentElement.parentElement;
+	}
+	return rangeBox;
 }
 
 function getCoefficient(event) {
-  let slider = getRangeBox(event);
+	let slider = getRangeBox(event);
 	let screenOffset = document.querySelector("#screen").offsetLeft + 26;
-  let K = 0;
+	let K = 0;
 	let offsetX = event.clientX - screenOffset;
 	let width = slider.clientWidth;
 	K = offsetX / width;
-  return K;
+	return K;
 }
 
 function rewind(event) {
-  if(inRange(event)) {
-    player.currentTime = player.duration * getCoefficient(event);
-  }
+	if (inRange(event)) {
+		player.currentTime = player.duration * getCoefficient(event);
+	}
 }
 
 function formatTime(time) {
-  var min = Math.floor(time / 60);
-  var sec = Math.floor(time % 60);
-  return min + ':' + ((sec<10) ? ('0' + sec) : sec);
+	var min = Math.floor(time / 60);
+	var sec = Math.floor(time % 60);
+	return min + ':' + ((sec < 10) ? ('0' + sec) : sec);
 }
 
 function togglePlay() {
 	player.volume = 0.5;
 
-  if(player.paused) {
-    player.play();
-  } else {
-    player.pause();
-  }
+	if (player.paused) {
+		player.play();
+	}
+	else {
+		player.pause();
+	}
 }

@@ -17,14 +17,12 @@ import stripIndent from 'common-tags/lib/stripIndent/index.js'
 import vlcCommand from 'vlc-command'
 import WebTorrent from 'webtorrent'
 import Yargs from 'yargs'
-import {
-	hideBin
-}
+import {hideBin}
 from 'yargs/helpers'
 import open from 'open'
 
 const {
-	version: webTorrentCliVersion
+  version: webTorrentCliVersion
 } = JSON.parse(fs.readFileSync(new URL('../package.json', import.meta.url)))
 const webTorrentVersion = WebTorrent.VERSION
 
